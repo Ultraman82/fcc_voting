@@ -1,0 +1,29 @@
+extends layout
+block content
+  head    
+    // Custom styles for this template
+    link(href='https://getbootstrap.com/docs/4.0/examples/signin/signin.css', rel='stylesheet')
+  body
+    .container(style = "padding-top: 3.5rem")
+      form.form-signin(action='/edit/' + encodeURIComponent(data.pollTitle) method='post')
+        h2.form-signin-heading Edit your pool.
+        label Title: 
+          = data.pollTitle 
+        br     
+        | Warning  : When you edit options, the accumilated votes will be 0.
+        br
+        .option          
+          label Options
+          -for (var option in data.options)
+            input.form-control(type='text', value= option, name=option)
+        br        
+        button#addOption.btn.btn-primary Add option                 
+        br        
+        button.btn.btn-lg.btn-primary.btn-block(style='{mrgin-top:10px}', type='submit') Edit Submit
+    script.
+      var num = 1;
+      $('#addOption').click(function(){
+        num++;   
+        $('.option').append(`<input class="form-control" type="text" name="option${num}"/>
+          `);        
+      });  

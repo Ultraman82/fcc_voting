@@ -1,0 +1,16 @@
+extends layout
+block content
+  head    
+    // Custom styles for this template
+    link(href='https://getbootstrap.com/docs/4.0/examples/signin/signin.css', rel='stylesheet')
+  body
+    .container(style = "padding-top: 3.5rem")
+      form.form-signin(action='/delete/' + encodeURIComponent(data.pollTitle) method='post')
+        h2.form-signin-heading Are you sure to delete 
+          = data.pollTitle         
+        br        
+        
+        button.btn.btn-lg.btn-danger(type='submit') Yes
+      .form-signin
+        a.btn.btn-secondary.form-signin(href='/mypolls/') No
+      

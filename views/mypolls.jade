@@ -1,0 +1,77 @@
+
+extends layout
+block content 
+  body
+  .jumbotron(style = "padding-top: 3.5rem")
+    .container        
+      if user
+        h1.display-3 Dashboard
+        p
+          | What would you like to do?
+        p
+          a.btn.btn-success.btn-lg(href='/addpoll', role='button') New Poll                        
+      else
+        h1.display-3 Login please.
+        p
+          a.btn.btn-primary.btn-lg(href='/login', role='button') Login
+        p
+          a.btn.btn-primary.btn-lg(href='/register', role='button') Sign up
+  .container
+    artcle#data(data-i= data)
+    .row
+      -for(var i = 0; i<6;i++)
+        .col-md-4
+          if data[i]
+            h2= data[i].pollTitle               
+              //- #canvas-holder(style='width:10%')                      
+              //-   canvas(id= 'chart-area'+i)
+            -for (var option in data[i].options)
+              p
+                li= [option, data[i].options[option]]                         
+            p
+              a.btn.btn-warning(href='/vote/'+encodeURIComponent(data[i].pollTitle), role='button') Go Vote »        
+            p
+              a.btn.btn-info(href='/edit/'+encodeURIComponent(data[i].pollTitle), role='button') Edit poll »        
+            p
+              a.btn.btn-danger(href='/delete/'+encodeURIComponent(data[i].pollTitle), role='button') Delete »        
+        
+  //- script.
+  //-   var datas = $('#data').data('i');   
+  //-   var datum = [];     
+  //-   datas.forEach(function(values, index){              
+  //-     var data = {lables:[], dataSet:[], chartArea:'chart-area'+index, title:values.pollTitle};
+  //-   $.each(values.options, function(index, value){              
+  //-     data.lables.push(index);              
+  //-     data.dataSet.push(value);
+  //-   });
+  //-   datum.push(data);    
+  //-   });    
+  //-   var makeConfig = function(dataSet, title, lables){
+  //-     return {
+  //-     type: 'pie',
+  //-     data: {
+  //-     datasets: [{
+  //-     data: dataSet,
+  //-     backgroundColor: [
+  //-       window.chartColors.red,
+  //-       window.chartColors.orange,
+  //-       window.chartColors.yellow,
+  //-       window.chartColors.green,
+  //-       window.chartColors.blue,
+  //-     ],      
+  //-     label: title}],
+  //-     labels: lables},
+  //-     options: {responsive: true}
+  //-     };
+  //-   }        
+  //-     window.onload = function(){
+  //-       datum.forEach(function(data, i){
+  //-       console.log(`data:${data}, index:${i} `);
+  //-       var ctx = document.getElementById(data.chartArea);
+  //-       window.myPie = new Chart(ctx, makeConfig(data.dataSet, data.title, data.lables));        
+  //-   });
+  //-   };    
+       
+  .container
+    footer      
+      p © Edgar 2017

@@ -1,0 +1,45 @@
+
+extends layout
+block content
+    main(role='main')
+      // Main jumbotron for a primary marketing message or call to action
+      .jumbotron(style = "padding-top: 3.5rem")
+        .container        
+          if user
+            h1.display-3 Dashboard
+            p
+              | What would you like to do?
+            p
+              a.btn.btn-success.btn-lg(style='margin:1rem', href='/addpoll', role='button') New Poll
+              
+              a.btn.btn-primary.btn-lg(style='margin:1rem', href='/mypolls', role='button') My Polls          
+              
+              a.btn.btn-warning.btn-lg(style='margin:1rem', href='/allPolls', role='button') All Polls          
+          else
+            h1.display-3 Freecodecamp VotingApp
+            p
+              | Create your own voting and see the results in charts.
+            p
+              a.btn.btn-primary.btn-lg(href='/register', role='button') Sign up
+      .container
+        // Example row of columns
+        h1 Most popular polls.
+        br        
+        artcle#data(data-i= data)
+        .row
+          -for(var i = 0; i<3;i++)
+            .col-md-4
+              h2= data[i].pollTitle               
+                //- #canvas-holder(style='width:10%')                      
+                //-   canvas(id= 'chart-area'+i)
+              -for (var option in data[i].options)
+                p
+                  li= [option, data[i].options[option]]                         
+              p
+                a.btn.btn-secondary(style='margin-bottom:40px' href='/vote/'+encodeURIComponent(data[i].pollTitle), role='button') Go Vote »        
+        
+      // /container
+    footer.container
+      p © Edgar 2017
+
+        

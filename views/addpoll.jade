@@ -1,0 +1,27 @@
+extends layout
+block content
+  head    
+    // Custom styles for this template
+    link(href='https://getbootstrap.com/docs/4.0/examples/signin/signin.css', rel='stylesheet')
+  body
+    .container(style = "padding-top: 3.5rem")
+      form.form-signin(action='/addpoll' method='post')
+        h2.form-signin-heading Add your pool.
+        label Title of pool.
+        input.form-control(type='text', name ='pollTitle', required='', autofocus='')
+        .option          
+          label Options
+          input.form-control(type='text', name='option0', required='')          
+          input.form-control(type='text', name='option1', required='')
+        
+        br
+        button.btn.btn-lg.btn-primary(type='submit') Add pool
+      .form-signin
+        button#addOption.btn.btn-secondary Add option 
+    script.
+      var num = 1;
+      $('#addOption').click(function(){
+        num++;   
+        $('.option').append(`<input class="form-control" type="text" name="option${num}"/>
+          `);        
+      });  

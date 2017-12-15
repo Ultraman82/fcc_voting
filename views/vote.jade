@@ -1,0 +1,65 @@
+extends layout
+block content              
+  body
+    .jumbotron(style = "padding-top: 3.5rem")
+      h2= data.pollTitle
+      #canvas-holder(style='width:50%')
+        canvas#chart-area(style='padding-top:0px' data-i= data)
+      
+      form(action='/vote/'+encodeURIComponent(data.pollTitle), method='post')
+        -for (var option in data.options)                    
+          input.element.radio(name='option', type='radio', value=option)
+          label.choice.option= option
+          br 
+        input.btn.btn-primary(type='submit')
+      script.                          
+        var datas = $('#chart-area').data('i');
+        var lables = [];
+        var dataSet = [];
+        $.each(datas.options, function(index, value){
+          lables.push(index);        
+          dataSet.push(value);                
+        });
+        console.log(lables + dataSet);
+        var config = {
+        type: 'pie',
+        data: {
+        datasets: [{
+        data: dataSet,
+        backgroundColor: [
+          window.chartColors.red,
+          window.chartColors.orange,
+          window.chartColors.yellow,
+          window.chartColors.green,
+          window.chartColors.blue,
+        ],
+        label: datas.pollTitle
+        }],
+        labels: lables
+        },
+        options: {
+        responsive: true
+        }
+        };
+        window.onload = function(){
+        var ctx = document.getElementById("chart-area").getContext("2d");
+        window.myPie = new Chart(ctx, config);
+        };            
+        
+      .container
+        footer      
+        p © Edgar 2017        
+        
+            
+    
+      
+      //- var datas = $('#data').data('i');          
+      //- console.log(datas);
+      //- for (var data in datas) {                    
+      //-   var dArray = [];
+      //-   var title = data.pollTitle;          
+      //-   for (var option in data.options){
+      //-     dArray.push([option, data.options[option]]);            
+      //-   };
+      //-   console.log(dArray);
+      //- }        

@@ -1,0 +1,17 @@
+extends layout
+block content
+  head    
+    // Custom styles for this template
+    link(href='https://getbootstrap.com/docs/4.0/examples/signin/signin.css', rel='stylesheet')
+  body
+    .container(style = "padding-top: 3.5rem")
+      form.form-signin(action='/register' method='post')
+        h2.form-signin-heading Please sign up.
+        label.sr-only(for='inputEmail') Email
+        input.form-control(type='email', name ='userId', placeholder='Email address', required='', autofocus='')
+        label.sr-only(for='inputPassword') Password
+        input.form-control(type='password', name='password', placeholder='Password', required='')        
+        label.sr-only User Name
+        input.form-control(type='text', name='userName' placeholder='User Name', required='')                
+        button.btn.btn-lg.btn-primary.btn-block(type='submit') Register
+    
